@@ -80,27 +80,27 @@ export const Filters: React.FC<Props> = ({ className}) => {
                     },
                     {
                         text: 'Сырный соус',
-                        value: '1',
+                        value: '7',
                     },
                     {
                         text: 'Моццарелла',
-                        value: '2',
+                        value: '8',
                     },
                     {
                         text: 'Чеснок',
-                        value: '3',
+                        value: '9',
                     },
                     {
                         text: 'Солённые огурчики',
-                        value: '4',
+                        value: '10',
                     },
                     {
                         text: 'Красный лук',
-                        value: '5',
+                        value: '11',
                     },
                     {
                         text: 'Томаты',
-                        value: '6',
+                        value: '12',
                     }
                 ]}
 
