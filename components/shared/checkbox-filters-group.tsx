@@ -31,7 +31,7 @@ export const CheckboxFiltersGroup: React.FC<Props> = (
     const [showAll, setShowAll] = React.useState(false);
     const [searchValue, setSearchValue] = React.useState('')
     const list = showAll
-        ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLowerCase()))
+        ? items.filter((item) => item.text.toLowerCase().includes(searchValue.toLocaleLowerCase()))
         : defaultItems.slice(0, limit);
 
     const onChangeSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
