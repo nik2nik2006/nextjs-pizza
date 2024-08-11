@@ -32,9 +32,7 @@ export const ProductsGroupList: React.FC<Props> = ({
         threshold: 1,
     })
     React.useEffect(() => {
-        console.log("effect")
         if (intersection?.isIntersecting) {
-            console.log(title, categoryId);
             setActiveCategoryId(categoryId);
         }
     }, [intersection?.isIntersecting])
