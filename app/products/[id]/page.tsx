@@ -1,3 +1,3 @@
-export default function () {
-    return <h1>Hello world</h1>
+export default function ProductPage({ params: {id} }) {
+    return <h1>Product {id}</h1>
 }

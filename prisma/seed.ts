@@ -1,7 +1,8 @@
-import {Prisma} from "@prisma/client";
+
 import { prisma } from './prisma-client';
 import {hashSync} from "bcrypt";
 import {categories, ingredients, products} from "./constants";
+import {Prisma} from "@prisma/client";
 
 
 const randomDecimalNumber = (min: number, max: number) => {
