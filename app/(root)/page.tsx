@@ -13,7 +13,6 @@ export default async function Home() {
         }
     })
 
-    console.log(categories);
     return <>
         <Container className='mt-10'>
             <Title text='Все пиццы' size='lg' className='font-extrabold' />
