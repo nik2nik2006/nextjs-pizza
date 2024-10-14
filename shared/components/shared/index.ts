@@ -13,5 +13,7 @@ export {ProductsGroupList} from './products-group-list';
 export {SearchInput} from './search-input';
 export {PizzaImage} from './pizza-image'
 export {ChooseProductModal} from './modals/choose-product-modal'
-export {ChooseProductForm} from './choose-product-form'
+export {ChooseProductForm} from './choose-product-form';
+export {IngredientItem} from './ingredient-item';
+export {GroupVariants} from './group-variants';
 

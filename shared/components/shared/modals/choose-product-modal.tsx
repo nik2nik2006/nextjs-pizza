@@ -1,12 +1,13 @@
 'use client'
 
 import React from 'react';
-import { Dialog, DialogContent } from "@/shared/components/ui";
+import {Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle} from "@/shared/components/ui";
 import { ChooseProductForm } from "@/shared/components/shared";
 import {cn} from "@/shared/lib/utils";
 import {useRouter} from "next/navigation";
 import {ProductWithRelations} from "@/@types/prisma";
 import {ChoosePizzaForm} from "@/shared/components/shared/choose-pizza-form";
+import {VisuallyHidden} from "@radix-ui/react-visually-hidden";
 
 interface Props {
     product: ProductWithRelations;
@@ -26,7 +27,12 @@ export const ChooseProductModal: React.FC<Props> = ({ product, className}) =>{
             )}>
                 {
                     isPizzaForm ? (
-                        <ChoosePizzaForm imageUrl={product.imageUrl} name={product.name} ingredients={[]}/>
+                        <ChoosePizzaForm
+                            imageUrl={product.imageUrl}
+                            name={product.name}
+                            ingredients={product.ingredients}
+                            items={product.items}
+                        />
                     ) : (
                         <ChooseProductForm imageUrl={product.imageUrl} name={product.name} />
                     )

@@ -1,11 +1,8 @@
-import { prisma } from '/prisma/prisma-client';
+import { prisma } from '@/prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 
-// export async function GET(req: NextRequest) {
-export async function GET(query) {
-    console.log('req= ', req)
-    // const query = req.nextUrl.searchParams.get('query') || '';
-    console.log('query= ', query);
+export async function GET(req: NextRequest) {
+    const query = req.nextUrl.searchParams.get('query') || '';
 
     const products = await prisma.product.findMany({
         where: {
