@@ -2,11 +2,10 @@ import React from 'react';
 import {cn} from "@/shared/lib/utils";
 import {GroupVariants, IngredientItem, PizzaImage, Title} from "@/shared/components/shared/index";
 import {Button} from "@/shared/components/ui";
-import {mapPizzaType, PizzaSize, pizzaSizes, PizzaType, pizzaTypes} from "@/shared/constants/pizza";
+import { PizzaSize, PizzaType, pizzaTypes} from "@/shared/constants/pizza";
 import {Ingredient, ProductItem} from "@prisma/client";
-import {useSet} from "react-use";
-import {calcTotalPizzaPrices, getAvailablePizzaSizes} from "@/shared/lib";
-import {usePizzaOptions} from "@/shared/lib/use-pizza-options";
+import { getPizzaDetails } from "@/shared/lib";
+import { usePizzaOptions } from "@/shared/hooks";
 
 interface Props {
     imageUrl: string;
@@ -25,39 +24,12 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     className
     }) => {
 
+    const {size, type, selectedIngredients, availableSizes, setSize, setType, addIngredient} = usePizzaOptions(items);
 
-    const totalPrice = calcTotalPizzaPrices(
-        type,
-        size,
-        items,
-        ingredients,
-        selectedIngredients
-    );
-    const textDetails = `${size} см, ${mapPizzaType[type]} пицца`;
-
-    const availablePizzaSizes = getAvailablePizzaSizes(type, items);
-
-    const {} = usePizzaOptions()
-
-
-    React.useEffect(() => {
-        const isAvailableSize = availablePizzaSizes?.find(
-            (item) => Number(item.value) === size && !item.disabled
-        );
-        const availableSize = availablePizzaSizes?.find((item) => !item.disabled);
-
-        if (!isAvailableSize && availableSize) {
-            setSize(Number(availableSize.value) as PizzaSize)
-        }
-    }, [type]);
+    const {totalPrice, textDetails} = getPizzaDetails(type, size, items, ingredients, selectedIngredients);
 
     const handleClick = () => {
         onClickAddCart?.();
-        console.log({
-            size,
-            type,
-            ingredients: selectedIngredients,
-        })
     }
 
     return (
@@ -70,7 +42,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
 
                 <div className='flex flex-col gap-4 mt-5'>
                     <GroupVariants
-                        items={availablePizzaSizes}
+                        items={availableSizes}
                         value={String(size)}
                         onClick={value => setSize(Number(value) as PizzaSize)}
                     />
