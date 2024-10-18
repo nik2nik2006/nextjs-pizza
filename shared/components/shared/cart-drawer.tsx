@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 import {
@@ -11,6 +13,8 @@ import {
 import {Button} from "@/shared/components/ui";
 import Link from "next/link";
 import {ArrowRight} from "lucide-react";
+import {CartDrawerItem} from "@/shared/components/shared/cart-drawer-item";
+import {getCartItemDetails} from "@/shared/lib";
 
 interface Props {
     className?: string;
@@ -26,6 +30,90 @@ export const CartDrawer: React.FC<React.PropsWithChildren> = ({children, classNa
                         В корзине <span className='font-bold'>3 товара</span>
                     </SheetTitle>
                 </SheetHeader>
+
+                <div className="-mx-6 mt-5 overflow-auto flex-1">
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+                    <div className='mb-2'>
+                        <CartDrawerItem
+                            id={1}
+                            imageUrl={'https://media.dodostatic.net/image/r:292x292/11EEFB595A197C24BA932A0AD1144AFB.avif'}
+                            details={getCartItemDetails(2, 30, [{name: 'Цыпленок'}, {name: 'Сыр'}])}
+                            name={'Куриные наггетсы'}
+                            price={419}
+                            quantity={2}
+                        />
+                    </div>
+
+                </div>
 
                 <SheetFooter className='-mx-6 bg-white p-8' >
                     <div className='w-full' >
