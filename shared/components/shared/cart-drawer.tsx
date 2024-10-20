@@ -15,11 +15,14 @@ import Link from "next/link";
 import {ArrowRight} from "lucide-react";
 import {CartDrawerItem} from "@/shared/components/shared/cart-drawer-item";
 import {getCartItemDetails} from "@/shared/lib";
+import {useCartStore} from "@/shared/store/cart";
 
 interface Props {
     className?: string;
 };
 export const CartDrawer: React.FC<React.PropsWithChildren> = ({children, className}) => {
+    const {} = useCartStore();
+
     return (
         <Sheet>
             <SheetTrigger asChild>{children}</SheetTrigger>
