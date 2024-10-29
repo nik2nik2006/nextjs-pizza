@@ -1,7 +1,8 @@
 import {create} from "zustand";
 import {Api} from "@/shared/services/api-client";
-import {getCartDetails} from "@/shared/lib";
+import { getCartDetails } from "@/shared/lib";
 import { CartStateItem } from "@/shared/lib/get-cart-details";
+import { removeCartItem } from "@/shared/services/cart";
 
 export interface CartState {
     loading: boolean;
@@ -19,7 +20,7 @@ export interface CartState {
     addCartItem: (value: any) => Promise<void>;
 
     /* Запрос на удаление товара из корзины */
-    remoteCartItem: (id: number) => Promise<void>;
+    removeCartItem: (id: number) => Promise<void>;
 };
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -31,7 +32,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     fetchCartItems: async () => {
         try {
             set({loading: true, error: false});
-            const data = await Api.cart.fetchCart();
+            const data = await Api.cart.getCart();
             set(getCartDetails(data));
         } catch (error) {
             console.error(error);
@@ -40,8 +41,31 @@ export const useCartStore = create<CartState>((set, get) => ({
             set({loading: false});
         }
     },
-    remoteCartItem: async (id: number) => {},
-    updateItemQuantity: async (id: number, quantity: number) => {},
+    updateItemQuantity: async (id: number, quantity: number) => {
+        try {
+            set({loading: true, error: false});
+            const data = await Api.cart.updateItemQuantity(id, quantity);
+            set(getCartDetails(data));
+        } catch (error) {
+            console.error(error);
+            set({error: true})
+        } finally {
+            set({loading: false});
+        }
+    },
+
+    removeCartItem: async (id: number) => {
+        try {
+            set({loading: true, error: false});
+            const data = await Api.cart.removeCartItem(id);
+            set(getCartDetails(data));
+        } catch (error) {
+            console.error(error);
+            set({error: true})
+        } finally {
+            set({loading: false});
+        }
+    },
     addCartItem: async (value: any) => {},
 }));
 
