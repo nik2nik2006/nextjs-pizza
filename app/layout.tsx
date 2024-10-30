@@ -1,4 +1,5 @@
 import {Nunito} from "next/font/google";
+import { Toaster } from 'react-hot-toast';
 
 import "./globals.css";
 
@@ -16,6 +17,7 @@ export default function RootLayout({children }: Readonly<{ children: React.React
         </head>
         <body className={nunito.className}>
             {children}
+            <Toaster />
         </body>
       </html>
     );
