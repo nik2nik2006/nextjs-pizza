@@ -8,3 +8,4 @@ export {RadioGroup} from "@/shared/components/ui/radio-group";
 export {Select} from "@/shared/components/ui/select";
 export {Skeleton} from "@/shared/components/ui/skeleton";
 export {Slider} from "@/shared/components/ui/slider";
+export {Textarea} from "@/shared/components/ui/textarea";
