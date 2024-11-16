@@ -5,7 +5,7 @@ import {CreateCartItemValues} from "@/shared/services/dto/cart.dto";
 
 type ReturnProps = {
     totalAmount: number,
-    items: CartStateItemItem[],
+    items: CartStateItem[],
     loading: boolean;
     fetchCartItems,
     updateItemQuantity: (id: number, quantity: number) => void,

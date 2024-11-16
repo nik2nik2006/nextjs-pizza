@@ -1,8 +1,9 @@
-import {RequiredSimbol} from "@/shared/components/shared";
+import {ClearButton, ErrorText, RequiredSimbol} from "@/shared/components/shared";
 import {Input} from "@/shared/components/ui";
+import {useFormContext} from "react-hook-form";
 
 
-interface Props {
+interface Props extends React.InputHTMLAttributes<HTMLInputElement>{
     name: string;
     label?: string;
     required?: boolean;
@@ -18,6 +19,20 @@ export const FormInput: React.FC<Props> = (
         ...props
     }) => {
 
+    const {
+        register,
+        formState: { errors },
+        watch,
+        setValue
+    } = useFormContext();
+
+    const value = watch(name);
+    const errorText = errors[name]?.message as string;
+
+    const onClickClear = () => {
+        setValue(name, '');
+    }
+
     return (
         <div className={className} >
             {label && (
@@ -25,10 +40,17 @@ export const FormInput: React.FC<Props> = (
                     {label} {required && <RequiredSimbol/>}
                 </p>
             )}
+
             <div className='relative' >
-                <Input className='h-12 text-md' {...props} />
+                <Input className='h-12 text-md' {...register(name)} {...props}/>
+                {value && <ClearButton  onClick={onClickClear} />}
             </div>
 
+            {errorText && <ErrorText text={errorText} className='mt-2'/>}
         </div>
     )
 }
+
+
+
+

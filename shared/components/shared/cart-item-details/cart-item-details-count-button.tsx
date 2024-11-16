@@ -1,3 +1,3 @@
-import {CountButton} from "@/shared/components/shared";
+import { CountButton } from '../count-button';
 
 export const CartItemDetailsCountButton = CountButton;

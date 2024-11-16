@@ -27,4 +27,6 @@ export {CheckoutItem} from './checkout-item';
 export {CheckoutItemSkeleton} from './checkout-item-skeleton';
 export {CheckoutSidebar} from './checkout-sidebar';
 export {RequiredSimbol} from './required-simbol';
+export {ErrorText} from './error-text';
+export {ClearButton} from './clear-button';
 
