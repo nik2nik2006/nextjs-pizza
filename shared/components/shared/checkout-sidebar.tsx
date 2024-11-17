@@ -10,12 +10,14 @@ const DELIVERY_PRICE = 250;
 
 interface Props {
     totalAmount: number;
+    loading?: boolean;
     className?: string;
 }
 
 export const CheckoutSidebar: React.FC<Props> = (
     {
         totalAmount,
+        loading,
         className
     }) => {
 
