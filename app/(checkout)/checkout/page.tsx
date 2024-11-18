@@ -45,11 +45,16 @@ export default function CheckoutPage() {
                 <div className='flex gap-10'>
                     {/* Левая часть */}
                     <div className='flex flex-col gap-10 flex-1 mb-20'>
-                        <CheckoutCart items={items} removeCartItem={removeCartItem} onClickCountButton={onClickCountButton}/>
+                        <CheckoutCart
+                            items={items}
+                            removeCartItem={removeCartItem}
+                            onClickCountButton={onClickCountButton}
+                            loading={loading}
+                        />
 
-                        <CheckoutPersonalForm />
+                        <CheckoutPersonalForm className={loading ? 'opacity-40 pointer-events-none' : ''} />
 
-                        <CheckoutAddressForm />
+                        <CheckoutAddressForm className={loading ? 'opacity-40 pointer-events-none' : ''} />
                     </div>
 
                     {/* Правая часть */}
