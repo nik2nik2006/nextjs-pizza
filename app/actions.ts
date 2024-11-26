@@ -1,9 +1,13 @@
 'use server';
 
+
 import {CheckoutFormValues} from "@/shared/components/shared/checkout/checkout-form-schema";
 import {prisma} from "@/prisma/prisma-client";
-import { OrderStatus} from '@prisma/client';
+import {OrderStatus} from '@prisma/client';
 import {cookies} from "next/headers";
+import {Resend} from "resend";
+import {sendEmail} from "@/shared/lib";
+import {PayOrderTemplate} from "@/shared/components/shared/email-templates/pay-order";
 
 export async function createOrder(data: CheckoutFormValues) {
     try {
@@ -25,7 +29,7 @@ export async function createOrder(data: CheckoutFormValues) {
                         }
                     }
                 }
-            }
+            },
             where: {
                 token: cartToken,
             }
@@ -50,14 +54,41 @@ export async function createOrder(data: CheckoutFormValues) {
                 totalAmount: userCart.totalAmount,
                 status: OrderStatus.PENDING,
                 items: JSON.stringify(userCart.items),
+            }
+        })
+
+        await prisma.cart.update({
+            where: {
+                id: userCart.id,
             },
-        )}
+            data: {
+                totalAmount: 0,
+            }
+        });
+
+        await prisma.cartItem.deleteMany({
+            where: {
+                cartId: userCart.id,
+            },
+        })
+
+        // TODO: Сделать создание ссылки оплаты
+
+        await sendEmail(
+            data.email,
+            'Next Pizza / Оплатите заказ №' + order.id,
+            PayOrderTemplate({
+                orderId: order.id,
+                totalAmount: order.totalAmount,
+                paymentUrl: 'https://resend.com/docs/send-with-nextjs#1-install',
+            }),
+        );
 
     } catch (err) {
-        
+        console.log('[CreateOrder] Server error', err);
     }
-    
-    
+
+
     // console.log()
     //
     // const token = '123';
