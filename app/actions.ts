@@ -5,7 +5,6 @@ import {CheckoutFormValues} from "@/shared/components/shared/checkout/checkout-f
 import {prisma} from "@/prisma/prisma-client";
 import {OrderStatus} from '@prisma/client';
 import {cookies} from "next/headers";
-import {Resend} from "resend";
 import {sendEmail} from "@/shared/lib";
 import {PayOrderTemplate} from "@/shared/components/shared/email-templates/pay-order";
 
@@ -22,18 +21,20 @@ export async function createOrder(data: CheckoutFormValues) {
             include: {
                 user: true,
                 items: {
-                    ingredients: true,
-                    productItem: {
-                        include: {
-                            product: true,
-                        }
-                    }
-                }
+                    include: {
+                        ingredients: true,
+                        productItem: {
+                            include: {
+                                product: true,
+                            },
+                        },
+                    },
+                },
             },
             where: {
                 token: cartToken,
-            }
-        })
+            },
+        });
 
         if (!userCart) {
             throw new Error('Cart not found');
@@ -83,6 +84,7 @@ export async function createOrder(data: CheckoutFormValues) {
                 paymentUrl: 'https://resend.com/docs/send-with-nextjs#1-install',
             }),
         );
+        console.log('OK!')
 
     } catch (err) {
         console.log('[CreateOrder] Server error', err);
@@ -96,5 +98,4 @@ export async function createOrder(data: CheckoutFormValues) {
 
     // });
 
-    return 'https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations';
 }
