@@ -4,12 +4,10 @@ import React from "react";
 import {cn} from "@/shared/lib/utils";
 import Image from "next/image";
 import Logo from '../../../public/logo.png'
-import {Button} from "@/shared/components/ui";
-import {CartButton, Container, SearchInput} from "@/shared/components/shared/index";
-import {ArrowRight, ShoppingCart, User} from "lucide-react";
+import {CartButton, Container, ProfileButton, SearchInput} from "@/shared/components/shared/index";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import {  useSearchParams } from 'next/navigation';
+import {useSearchParams} from 'next/navigation';
 
 interface Props {
     hasSearch: boolean;
@@ -17,19 +15,19 @@ interface Props {
     className: string;
 }
 
-export const Header: React.FC<Props> = ({hasSearch= true, hasCart = true, className}) => {
+export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, className}) => {
     const searchParams = useSearchParams();
 
-    React.useEffect(() => {
-        if (searchParams.has('paid')) {
-            setTimeout(() => {
-                // router.replace('/');
-                toast.success('Заказ успешно оплачен! Информация отправлена на почту...', {
-                    duration: 3000,
-                });
-            }, 1000);
-        }
-    }, [])
+    // React.useEffect(() => {
+    //     if (searchParams.has('paid')) {
+    //         setTimeout(() => {
+    //             // router.replace('/');
+    //             toast.success('Заказ успешно оплачен! Информация отправлена на почту...', {
+    //                 duration: 3000,
+    //             });
+    //         }, 1000);
+    //     }
+    // }, [])
 
     return (
         <header className={cn('border-b', className)}>
@@ -49,10 +47,7 @@ export const Header: React.FC<Props> = ({hasSearch= true, hasCart = true, classN
                 </div>}
                 {/*    Правая часть Header*/}
                 <div className='flex items-center gap-3'>
-                    <Button variant="outline" className='flex items-center gap-1'>
-                        <User size={16}/>
-                        Войти
-                    </Button>
+                    <ProfileButton onClickSignIn={() => ({})} />
                     {hasCart && <CartButton/>}
                 </div>
             </Container>
