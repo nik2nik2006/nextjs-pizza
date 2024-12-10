@@ -11,6 +11,7 @@ interface Props {
 
 export const ProfileButton: React.FC<Props> = ({onClickSignIn, className}) => {
     const {data: session} = useSession();
+
     return (
         <div className={className}>
             {

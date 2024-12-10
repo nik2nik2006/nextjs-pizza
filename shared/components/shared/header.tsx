@@ -8,6 +8,7 @@ import {CartButton, Container, ProfileButton, SearchInput} from "@/shared/compon
 import Link from "next/link";
 import toast from "react-hot-toast";
 import {useSearchParams} from 'next/navigation';
+import {AuthModal} from "@/shared/components/shared/modals/auth-modal";
 
 interface Props {
     hasSearch: boolean;
@@ -16,18 +17,19 @@ interface Props {
 }
 
 export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, className}) => {
+    const [openAuthModal, setOpenAuthModal] = React.useState(false);
     const searchParams = useSearchParams();
 
-    // React.useEffect(() => {
-    //     if (searchParams.has('paid')) {
-    //         setTimeout(() => {
-    //             // router.replace('/');
-    //             toast.success('Заказ успешно оплачен! Информация отправлена на почту...', {
-    //                 duration: 3000,
-    //             });
-    //         }, 1000);
-    //     }
-    // }, [])
+    React.useEffect(() => {
+        if (searchParams.has('paid')) {
+            setTimeout(() => {
+                // router.replace('/');
+                toast.success('Заказ успешно оплачен! Информация отправлена на почту...', {
+                    duration: 3000,
+                });
+            }, 1000);
+        }
+    }, [])
 
     return (
         <header className={cn('border-b', className)}>
@@ -47,7 +49,9 @@ export const Header: React.FC<Props> = ({hasSearch = true, hasCart = true, class
                 </div>}
                 {/*    Правая часть Header*/}
                 <div className='flex items-center gap-3'>
-                    <ProfileButton onClickSignIn={() => ({})} />
+                    <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+                    <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+
                     {hasCart && <CartButton/>}
                 </div>
             </Container>
