@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import CredentialsProvider from "next-auth/providers/credentials";
 import {prisma} from "@/prisma/prisma-client";
-import {compare} from "bcrypt";
+import {compare, hashSync} from "bcrypt";
 
 export const authOptions = {
     providers: [
@@ -85,6 +85,33 @@ export const authOptions = {
 
                     }
                 })
+
+                if (findUser) {
+                    await prisma.user.findFirst({
+                        where: {
+                            id: findUser.id
+                        },
+                        data: {
+                            provider: account?.provider,
+                            providerId: account?.providerAccountId,
+                        }
+                    })
+
+                    return true;
+                }
+
+                await prisma.user.create({
+                    data:{
+                        email: user.email,
+                        fullName: user.name || 'User #' + user.id,
+                        password: hashSync(user.id.toString(), 10),
+                        verified: new Date(),
+                        provider: account?.provider,
+                        providerId: account?.providerAccountId,
+                    }
+                })
+
+                return true;
             } catch (error) {
                 console.log('Error [SIGNIN]', error);
                 return false;
